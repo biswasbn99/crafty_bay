@@ -31,7 +31,6 @@ class ThemeProvider extends ChangeNotifier {
 
   Future<void> _setCurrentThemeMode() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
     String? themeMode = sharedPreferences.getString(_themeKey);
     _currentThemeMode = _getThemeMode(themeMode);
   }

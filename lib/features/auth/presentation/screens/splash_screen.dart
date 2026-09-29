@@ -1,9 +1,13 @@
-import 'package:crafty_bay/app/extensions/localization_extension.dart';
+import 'package:crafty_bay/app/providers/auth_controller.dart';
 import 'package:crafty_bay/app/providers/locale_provider.dart';
 import 'package:crafty_bay/app/providers/theme_provider.dart';
-import 'package:crafty_bay/features/auth/presentation/widgets/app_logo.dart';
+import 'package:crafty_bay/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../app/extensions/utility_extension.dart';
+import '../../../shared/presentation/screens/main_nav_holder_screen.dart';
+import '../widgets/app_logo.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,13 +19,30 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    _moveToNextScreen();
+  }
+
+  Future<void> _moveToNextScreen() async {
+    await Future.delayed(Duration(seconds: 2));
+    if (await AuthController.isLoggedIn()) {
+      await AuthController.getUserData();
+    }
+    Navigator.pushNamedAndRemoveUntil(
+        context, MainNavHolderScreen.name, (predicate) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     final localizations = context.localizations;
+
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               Spacer(),
@@ -31,7 +52,6 @@ class _SplashScreenState extends State<SplashScreen> {
               Spacer(),
               CircularProgressIndicator(),
               const SizedBox(height: 16),
-
               Text('${localizations.version} 1.0.0'),
             ],
           ),

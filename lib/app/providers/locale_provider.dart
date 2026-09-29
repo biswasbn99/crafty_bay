@@ -6,7 +6,11 @@ class LocaleProvider extends ChangeNotifier {
 
   Locale _currentLocale = Locale('en');
 
-  List<Locale> get supportedLocales => [Locale('en'), Locale('bn')];
+  List<Locale> get supportedLocales => [
+    Locale('en'),
+    Locale('bn'),
+    Locale('de'),
+  ];
 
   Locale get currentLocale => _currentLocale;
 
