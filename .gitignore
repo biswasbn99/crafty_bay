@@ -46,3 +46,14 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+
+# Firebase & Secret configs
+**/google-services.json
+firebase.json
+
+# Generated Localization files
+lib/l10n/app_localizations*.dart
+
+# Temp / accidental CLI outputs
+/flutter
+/fvm
